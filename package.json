@@ -1,0 +1,72 @@
+{
+  "name": "file-index-service",
+  "version": "1.0.0",
+  "description": "Video resource sniffer using Puppeteer and Fastify",
+  "main": "main.cjs",
+  "bin": "main.cjs",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node main.cjs",
+    "dev": "node --watch main.cjs",
+    "test": "node test.js",
+    "build": "node build.js",
+    "build:all": "npm run build:win && npm run build:linux && npm run build:macos && npm run build:macos-arm",
+    "build:win": "pkg main.cjs --targets node18-win-x64 --compress GZip --output dist/file-index-win-x64.exe",
+    "build:linux": "pkg main.cjs --targets node18-linux-x64 --compress GZip --output dist/file-index-linux-x64",
+    "build:macos": "pkg main.cjs --targets node18-macos-x64 --compress GZip --output dist/file-index-macos-x64",
+    "build:macos-arm": "pkg main.cjs --targets node18-macos-arm64 --compress GZip --output dist/file-index-macos-arm64",
+    "build:brotli": "npm run build:win:brotli && npm run build:linux:brotli && npm run build:macos:brotli",
+    "build:win:brotli": "pkg main.cjs --targets node18-win-x64 --compress Brotli --output dist/file-index-win-x64-brotli.exe",
+    "build:linux:brotli": "pkg main.cjs --targets node18-linux-x64 --compress Brotli --output dist/file-index-linux-x64-brotli",
+    "build:macos:brotli": "pkg main.cjs --targets node18-macos-x64 --compress Brotli --output dist/file-index-macos-x64-brotli",
+    "build:lite": "npm run build:win:lite && npm run build:linux:lite && npm run build:macos:lite",
+    "build:win:lite": "pkg main.cjs --targets node18-win-x64 --compress Brotli --no-bytecode --output dist/file-index-win-x64-lite.exe",
+    "build:linux:lite": "pkg main.cjs --targets node18-linux-x64 --compress Brotli --no-bytecode --output dist/file-index-linux-x64-lite",
+    "build:macos:lite": "pkg main.cjs --targets node18-macos-x64 --compress Brotli --no-bytecode --output dist/file-index-macos-x64-lite",
+    "build:macos-arm:lite": "pkg main.cjs --targets node18-macos-arm64 --compress Brotli --no-bytecode --output dist/file-index-macos-arm64-lite",
+    "build:optimized": "node build.js",
+    "build:mini": "npm run build:win:mini && npm run build:linux:mini && npm run build:macos:mini",
+    "build:win:mini": "pkg main.cjs --targets node18-win-x64 --compress Brotli --no-bytecode --output dist/file-index-win-x64-mini.exe",
+    "build:linux:mini": "pkg main.cjs --targets node18-linux-x64 --compress Brotli --no-bytecode --output dist/file-index-linux-x64-mini",
+    "build:macos:mini": "pkg main.cjs --targets node18-macos-x64 --compress Brotli --no-bytecode --output dist/file-index-macos-x64-mini",
+    "build:macos-arm:mini": "pkg main.cjs --targets node18-macos-arm64 --compress Brotli --no-bytecode --output dist/file-index-macos-arm64-mini",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean"
+  },
+  "pkg": {
+    "targets": [
+      "node18-win-x64",
+      "node18-linux-x64", 
+      "node18-macos-x64",
+      "node18-macos-arm64"
+    ],
+    "outputPath": "dist",
+    "options": [
+      "--compress",
+      "GZip"
+    ],
+    "scripts": {
+      "main.cjs": "main.cjs"
+    }
+  },
+  "dependencies": {
+    "fastify": "^4.24.3",
+    "node-sqlite3-wasm": "^0.8.11"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1",
+    "rimraf": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "file-index",
+    "fastify",
+    "sqlite",
+    "file-search",
+    "api"
+  ],
+  "author": "",
+  "license": "MIT"
+}
